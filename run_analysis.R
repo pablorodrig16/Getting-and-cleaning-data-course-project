@@ -93,8 +93,10 @@ summary_dataset<-group_by(mean_std_dataset, subject, activities)%>%
 
 ##The following reset the working directory and erase all objects except 
 ##the 2 required datasets
-setwd (oldwd)
 
-write.table(x = summary_dataset, file = "new_dataset.txt", row.names = FALSE)
+
 
 rm (list = ls()[-c(which(ls()=="mean_std_dataset"), which (ls()=="summary_dataset"))])
+
+
+write.table(x = summary_dataset, file = "new_dataset.txt", row.names = FALSE)
