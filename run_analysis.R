@@ -91,8 +91,11 @@ test_data<-read.table (zip_files[17], colClasses = "numeric",
 
 tbl_test_data<-tbl_df(test_data)%>%
         select (activity_variables_with_mean_and_std)
+
+##changes variables names to improve legibility
 names (tbl_test_data)<-mean_std_activities_labels
 
+##binds subjects and activity columns
 tbl_test_data<-mutate (tbl_test_data,
                        subject=test_subjects, 
                        activities=test_activities)
@@ -114,8 +117,11 @@ train_data<-read.table (zip_files[31],colClasses = "numeric",
 
 tbl_train_data<-tbl_df(train_data)%>%
         select (activity_variables_with_mean_and_std)
+
+##binds subjects and activity columns
 names (tbl_train_data)<-mean_std_activities_labels
 
+##binds subjects and activity columns
 tbl_train_data<-mutate (tbl_train_data,
                        subject=train_subjects, 
                        activities=train_activities)
