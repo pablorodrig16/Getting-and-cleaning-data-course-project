@@ -139,7 +139,7 @@ Additionally other files are available for the train and test data (not used in 
         - frequency domain linear angular velocity (Jerk signal) magnitude
         
 X, Y and Z axis measurements are included in separated variables. I used grep function to find those variables names containing 'mean()' and 'std()' in the original test and train data set. All measurements values are unitless, they are normalized with a range from -1 to 1.
-To improve the legibility of these complex variables names I changed them from the raw data files as follows. The names includes first 'time' or 'frequency' domain, then the measurement ('BodyLinearAcceleration', 'GravityAcceleration' or 'BodyAngularVelocity', 'Jerk' and/or 'Magnitud' if applies), then if it is the 'mean()' or the standard deviation ('std()') and finaly the axis ('X','Y', or 'Z') if applies.
+To improve the legibility of these complex variables names I changed them from the raw data files as follows. The names includes first 'time' or 'frequency' domain, then the measurement ('BodyLinearAcceleration', 'GravityAcceleration' or 'BodyAngularVelocity', 'Jerk' and/or 'Magnitud' if applies), then if it is the 'mean' or the standard deviation ('std') and finally the axis ('X','Y', or 'Z') if applies.
 
 
 2) summary_std_dataset: this dplyr tbl objets holds 68 variables:

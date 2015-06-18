@@ -70,7 +70,10 @@ mean_std_activities_labels<-gsub ("Gyro",replacement = "AngularVelocity",
                                   x = mean_std_activities_labels)
 mean_std_activities_labels<-gsub ("Mag",replacement = "Magnitude",
                                   x = mean_std_activities_labels)
-
+mean_std_activities_labels<-gsub ("-",replacement = "_",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("\\()",replacement = "",
+                                  x = mean_std_activities_labels)
 
 ##get dataset from test patients
 ##1) subjects number
@@ -136,6 +139,6 @@ summary_dataset<-group_by(mean_std_dataset, subject, activities)%>%
 rm (list = ls()[-c(which(ls()=="mean_std_dataset"), which (ls()=="summary_dataset"))])
 
 ##save the 2nd table in 'new_dataset.txt' in the working directory
-write.table(x = summary_dataset,  
+write.table(x = summary_dataset, sep = "\t", 
             file = "new_dataset.txt", 
             row.names = FALSE)
