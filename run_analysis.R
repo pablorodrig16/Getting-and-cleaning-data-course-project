@@ -34,10 +34,43 @@ data_variables_names<-readLines (zip_files[2])
 ##get activities names
 activity_labels<-read.table (zip_files[1],
                              col.names = c("code", "activity"))
-activity_variables_with_mean<-grep(pattern = "mean",x = data_variables_names)
-activity_variables_with_std<-grep(pattern = "std",x = data_variables_names)
+activity_variables_with_mean<-grep(pattern = "mean()",
+                                   fixed = TRUE,
+                                   x = data_variables_names)
+activity_variables_with_std<-grep(pattern = "std()",
+                                  fixed = TRUE,
+                                  x = data_variables_names)
 activity_variables_with_mean_and_std<-sort(c(activity_variables_with_mean,
                                              activity_variables_with_std))
+
+##creates mean_std_activities_labels to improve description: first labels are 
+##subset from activity_variables_with_mean_and_std, then I split the labels and select
+##the descriptive elements of them. Then I correct an error in some of the last 
+##variables names  (BobyBody), and finally I replace the text with more descriptive
+##names.
+
+mean_std_activities_labels<-data_variables_names[activity_variables_with_mean_and_std]
+
+mean_std_activities_labels<-strsplit (x = mean_std_activities_labels,split = " ")
+
+mean_std_activities_labels<-sapply (X = mean_std_activities_labels,
+                                    FUN = function (x) x[2])
+
+mean_std_activities_labels<-gsub ("BodyBody",replacement = "Body",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("tBody",replacement = "timeBodyLinear",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("tGravity",replacement = "timeGravity",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("fBody",replacement = "frequencyBodyLinear",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("Acc",replacement = "Acceleration",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("Gyro",replacement = "AngularVelocity",
+                                  x = mean_std_activities_labels)
+mean_std_activities_labels<-gsub ("Mag",replacement = "Magnitude",
+                                  x = mean_std_activities_labels)
+
 
 ##get dataset from test patients
 ##1) subjects number
@@ -50,13 +83,16 @@ test_activities<-factor (test_activities,levels = activity_labels[,1],
 test_data<-read.table (zip_files[17], colClasses = "numeric",
                        col.names = data_variables_names)
 
-test_data<-cbind (subject=test_subjects,
-                  activities=test_activities,
-                  test_data)
+##creates a dplyr table object from test_data and select columns which contains
+##mean() and std()
 
-##creates a dplyr table object from test_data
-tbl_test_data<-tbl_df(test_data)
+tbl_test_data<-tbl_df(test_data)%>%
+        select (activity_variables_with_mean_and_std)
+names (tbl_test_data)<-mean_std_activities_labels
 
+tbl_test_data<-mutate (tbl_test_data,
+                       subject=test_subjects, 
+                       activities=test_activities)
 
 ##get dataset from train patients
 ##1) subjects number
@@ -70,18 +106,21 @@ train_activities<-factor (train_activities,levels = activity_labels[,1],
 train_data<-read.table (zip_files[31],colClasses = "numeric",
                         col.names = data_variables_names)
 
-train_data<-cbind (subject=train_subjects,
-                   activities=train_activities, 
-                   train_data)
+##creates a dplyr table object from train_data and select columns which contains
+##mean and std 
 
-##creates a dplyr table from train_data
-tbl_train_data<-tbl_df (train_data)
-
-##merge test and train dataset dplyr tables and select columns which contains
-##mean and std
-##this gives the 1st data set required in the course project
-mean_std_dataset<- bind_rows (tbl_test_data,tbl_train_data)%>%
+tbl_train_data<-tbl_df(train_data)%>%
         select (activity_variables_with_mean_and_std)
+names (tbl_train_data)<-mean_std_activities_labels
+
+tbl_train_data<-mutate (tbl_train_data,
+                       subject=train_subjects, 
+                       activities=train_activities)
+
+
+##merge test and train dataset dplyr tables
+##this gives the 1st data set required in the course project 
+mean_std_dataset<- bind_rows (tbl_test_data,tbl_train_data)
 
 
 ##the previous dataset is grouped by subject and activities and the function
@@ -91,10 +130,12 @@ mean_std_dataset<- bind_rows (tbl_test_data,tbl_train_data)%>%
 summary_dataset<-group_by(mean_std_dataset, subject, activities)%>%
         summarise_each (funs = "mean")
 
-##The following reset the working directory and erase all objects except 
+##Erase all objects except 
 ##the 2 required datasets
 
 rm (list = ls()[-c(which(ls()=="mean_std_dataset"), which (ls()=="summary_dataset"))])
 
 ##save the 2nd table in 'new_dataset.txt' in the working directory
-write.table(x = summary_dataset, file = "new_dataset.txt", row.names = FALSE)
+write.table(x = summary_dataset,  
+            file = "new_dataset.txt", 
+            row.names = FALSE)
