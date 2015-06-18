@@ -25,8 +25,11 @@ It produces 2 tidy dataset:
 The script requires dplyr and curl packages and works as follows:
 
 1) if data files ('data.zip' and unzip files) are not found in the working directory 'data.zip' it is downloaded and unzip. This creates a directory called 'UCI HAR Dataset'.
-2) Data activities labels are get from 'UCI HAR Dataset/activity_labels.txt'
+
+2) Data activities labels are get from 'UCI HAR Dataset/activity_labels.txt'.
+
 3) Variables names are get from 'UCI HAR Dataset/features.txt', and those with containing 'mean()' or 'std()' were selected using grep function. To improve legibility of these complex variables I modified the original name. The result is explained in 'CodeBook.md', but briefly I removed the number of variable from the original name with the strsplit and sapply functions keeping the description. Then I corrected the name of some variables that contained 'BodyBody'. Then I edited (actually expanded) the description as it is expressed in the Code Book.
+
 4) Data from test dataset were obtained (subject number, activities and data sensor measurementes) from: 
         
         a. "UCI HAR Dataset/test/subject_test.txt"  (subject number)                       
@@ -40,10 +43,15 @@ The script requires dplyr and curl packages and works as follows:
         c. "UCI HAR Dataset/train/y_train.txt" (data sensor measurements)
 
 6) a dplyr tbl object is created with both data sensor measurements data.frames (test and train).
+
 7) variables containing 'mean()' or 'std()' were selected using dplyr::select function.
+
 8) subject number and activities (encoded with data activities labels) were bound to both test and train tbl objets.
-9) test and train tbl are merged to produce the first tidy dataset ('mean_std_dataset')
+
+9) test and train tbl are merged to produce the first tidy dataset ('mean_std_dataset').
+
 10) mean_std_dataset tbl is grouped by both subject and activity and summarised with summarise_each function to get the second tidy dataset ('summary_dataset').
+
 11) the latter is saved in the working directory as 'new_dataset.txt'.
 
 
