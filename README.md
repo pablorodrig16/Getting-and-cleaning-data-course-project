@@ -4,7 +4,7 @@
 
 
 
-This repository holds a script ('run_analysis.R') to get two tidy dataset from the Human Activity Recognition Using Smartphones Dataset. This script is the response to the Coursera Getting and cleaning data course project. Also a dataset ('new_dataset.txt') is included which holds the tidy data required by the project instructions and a 'CodeBook.md' where details about study design, raw data and tidy datasets produced by the script can be found.
+This repository holds a script ('run_analysis.R') to get two tidy dataset from the Human Activity Recognition Using Smartphones Dataset. This script is the response to the Coursera Getting and cleaning data course project. Also a 'CodeBook.md' where details about study design, raw data and tidy datasets produced by the script can be found.
 
 Raw data is a compressed zip file that holds data from experiments carried out in a group of 30 volunteers within an age bracket of 19-48 years [1]. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity were captured. Processed signals are accesibles in https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip.
 
