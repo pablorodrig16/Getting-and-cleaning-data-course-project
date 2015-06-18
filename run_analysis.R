@@ -10,7 +10,7 @@ require (dplyr)
 
 if (!file.exists ("data.zip")){
         require (curl)
-        url<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip "
+        url<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
         curl_download (url, destfile = "./data.zip")       
 }
 
