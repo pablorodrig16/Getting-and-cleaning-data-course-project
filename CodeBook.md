@@ -7,11 +7,11 @@
 
 *summary_dataset*
 
-This dplyr tbl objets holds 68 variables:
+This dplyr tbl objets holds 68 variables and 180 rows:
 
-  * row 1: subject number. Its range is from 1 to 30.
-  * row 2: activity. It has 6 values ((WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING))
-  * row 3 to 68: mean per subject and activity type of mean () and standard deviation () from  measurements from train and test data set:
+  * column 1: subject number. Its range is from 1 to 30.
+  * column 2: activities. It has 6 values ((WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING))
+  * columns 3 to 68: mean per subject and activity type of mean () and standard deviation () from  measurements from train and test data set:
   
         - time domain body linear acceleration on the 3 axis (X,Y,Z)
         - time domain gravity acceleration on the 3 axis (X,Y,Z)
