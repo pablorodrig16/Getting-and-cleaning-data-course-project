@@ -52,7 +52,7 @@ The script requires dplyr and curl packages and works as follows:
 
 10) mean_std_dataset tbl is grouped by both subject and activity and summarised with summarise_each function to get the second tidy dataset ('summary_dataset').
 
-11) the latter is saved in the working directory as 'new_dataset.txt'.
+11) the latter is saved in the working directory as 'summary_dataset.txt'.
 
 
 

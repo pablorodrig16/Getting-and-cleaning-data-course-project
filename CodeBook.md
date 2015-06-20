@@ -2,6 +2,102 @@
 ##Coursera Getting and cleaning data Course Project
 ###author: Pablo O Rodriguez
 
+
+**Tidy dataset:**
+
+*summary_dataset*
+
+This dplyr tbl objets holds 68 variables:
+
+  * row 1: subject number. Its range is from 1 to 30.
+  * row 2: activity. It has 6 values ((WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING))
+  * row 3 to 68: mean per subject and activity type of mean () and standard deviation () from  measurements from train and test data set:
+  
+        - time domain body linear acceleration on the 3 axis (X,Y,Z)
+        - time domain gravity acceleration on the 3 axis (X,Y,Z)
+        - time domain body linear acceleration (Jerk signal) on the 3 axis (X,Y,Z)
+        - time domain body linear angular velocity on the 3 axis (X,Y,Z)
+        - time domain body linear angular velocity (Jerk signal) on the 3 axis (X,Y,Z)
+        - magnitudes (Euclidean norm) of the all the previous 3 dimensional variables (one variable for each)
+        - frequency domain body linear acceleration on the 3 axis (X,Y,Z)
+        - frequency domain body linear acceleration (Jerk signal) on the 3 axis (X,Y,Z)
+        - frequency domain body linear angular velocity on the 3 axis (X,Y,Z)
+        - frequency domain body linear acceleration magnitude
+        - frequency domain body linear acceleration (Jerk signal) magnitude
+        - frequency domain linear angular velocity magnitude
+        - frequency domain linear angular velocity (Jerk signal) magnitude
+        
+X, Y and Z axis measurements are included in separated variables. I used grep function to find those variables names containing 'mean()' and 'std()' in the original test and train data set. All measurements values are unitless, they are normalized with a range from -1 to 1.
+To improve the legibility of these complex variables names I changed them from the raw data files as follows:
+
+3       timeBodyLinearAcceleration_mean_X
+4	timeBodyLinearAcceleration_mean_Y
+5	timeBodyLinearAcceleration_mean_Z
+6	timeBodyLinearAcceleration_std_X
+7	timeBodyLinearAcceleration_std_Y
+8	timeBodyLinearAcceleration_std_Z
+9	timeGravityAcceleration_mean_X
+10	timeGravityAcceleration_mean_Y
+11	timeGravityAcceleration_mean_Z
+12	timeGravityAcceleration_std_X
+13	timeGravityAcceleration_std_Y
+14	timeGravityAcceleration_std_Z
+15	timeBodyLinearAccelerationJerk_mean_X
+16	timeBodyLinearAccelerationJerk_mean_Y
+17	timeBodyLinearAccelerationJerk_mean_Z
+18	timeBodyLinearAccelerationJerk_std_X
+19	timeBodyLinearAccelerationJerk_std_Y
+20	timeBodyLinearAccelerationJerk_std_Z
+21	timeBodyLinearAngularVelocity_mean_X
+22	timeBodyLinearAngularVelocity_mean_Y
+23	timeBodyLinearAngularVelocity_mean_Z
+24	timeBodyLinearAngularVelocity_std_X
+25	timeBodyLinearAngularVelocity_std_Y
+26	timeBodyLinearAngularVelocity_std_Z
+27	timeBodyLinearAngularVelocityJerk_mean_X
+28	timeBodyLinearAngularVelocityJerk_mean_Y
+29	timeBodyLinearAngularVelocityJerk_mean_Z
+30	timeBodyLinearAngularVelocityJerk_std_X
+31	timeBodyLinearAngularVelocityJerk_std_Y
+32	timeBodyLinearAngularVelocityJerk_std_Z
+33	timeBodyLinearAccelerationMagnitude_mean
+34	timeBodyLinearAccelerationMagnitude_std
+35	timeGravityAccelerationMagnitude_mean
+36	timeGravityAccelerationMagnitude_std
+37	timeBodyLinearAccelerationJerkMagnitude_mean
+38	timeBodyLinearAccelerationJerkMagnitude_std
+39	timeBodyLinearAngularVelocityMagnitude_mean
+40	timeBodyLinearAngularVelocityMagnitude_std
+41	timeBodyLinearAngularVelocityJerkMagnitude_mean
+42	timeBodyLinearAngularVelocityJerkMagnitude_std
+43	frequencyBodyLinearAcceleration_mean_X
+44	frequencyBodyLinearAcceleration_mean_Y
+45	frequencyBodyLinearAcceleration_mean_Z
+46	frequencyBodyLinearAcceleration_std_X
+47	frequencyBodyLinearAcceleration_std_Y
+48	frequencyBodyLinearAcceleration_std_Z
+49	frequencyBodyLinearAccelerationJerk_mean_X
+50	frequencyBodyLinearAccelerationJerk_mean_Y
+51	frequencyBodyLinearAccelerationJerk_mean_Z
+52	frequencyBodyLinearAccelerationJerk_std_X
+53	frequencyBodyLinearAccelerationJerk_std_Y
+54	frequencyBodyLinearAccelerationJerk_std_Z
+55	frequencyBodyLinearAngularVelocity_mean_X
+56	frequencyBodyLinearAngularVelocity_mean_Y
+57	frequencyBodyLinearAngularVelocity_mean_Z
+58	frequencyBodyLinearAngularVelocity_std_X
+59	frequencyBodyLinearAngularVelocity_std_Y
+60	frequencyBodyLinearAngularVelocity_std_Z
+61	frequencyBodyLinearAccelerationMagnitude_mean
+62	frequencyBodyLinearAccelerationMagnitude_std
+63	frequencyBodyLinearAccelerationJerkMagnitude_mean
+64	frequencyBodyLinearAccelerationJerkMagnitude_std
+65	frequencyBodyLinearAngularVelocityMagnitude_mean
+66	frequencyBodyLinearAngularVelocityMagnitude_std
+67	frequencyBodyLinearAngularVelocityJerkMagnitude_mean
+68	frequencyBodyLinearAngularVelocityJerkMagnitude_std  
+
+
 **Study design**
 
 These experiments were carried out in a group of 30 volunteers within an age bracket of 19-48 years [1]. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity were captured.
@@ -114,41 +210,6 @@ Additionally other files are available for the train and test data (not used in 
 - 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis. 
 - 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
 - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
-
-
-**Tidy datasets:**
-
-1) mean_std_dataset: this dplyr tbl objet holds 68 variables:
-  
-  * row 1: subject number. Its range is from 1 to 30.
-  * row 2: activity. It has 6 values (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
-  * row 3 to 68: these variables contain among train and test data set those with the mean and standard deviation for each measurement:
-  
-        - time domain body linear acceleration on the 3 axis (X,Y,Z)
-        - time domain gravity acceleration on the 3 axis (X,Y,Z)
-        - time domain body linear acceleration (Jerk signal) on the 3 axis (X,Y,Z)
-        - time domain body linear angular velocity on the 3 axis (X,Y,Z)
-        - time domain body linear angular velocity (Jerk signal) on the 3 axis (X,Y,Z)
-        - magnitudes (Euclidean norm) of the all the previous 3 dimensional variables (one variable for each)
-        - frequency domain body linear acceleration on the 3 axis (X,Y,Z)
-        - frequency domain body linear acceleration (Jerk signal) on the 3 axis (X,Y,Z)
-        - frequency domain body linear angular velocity on the 3 axis (X,Y,Z)
-        - frequency domain body linear acceleration magnitude
-        - frequency domain body linear acceleration (Jerk signal) magnitude
-        - frequency domain linear angular velocity magnitude
-        - frequency domain linear angular velocity (Jerk signal) magnitude
-        
-X, Y and Z axis measurements are included in separated variables. I used grep function to find those variables names containing 'mean()' and 'std()' in the original test and train data set. All measurements values are unitless, they are normalized with a range from -1 to 1.
-To improve the legibility of these complex variables names I changed them from the raw data files as follows. The names includes first 'time' or 'frequency' domain, then the measurement ('BodyLinearAcceleration', 'GravityAcceleration' or 'BodyAngularVelocity', 'Jerk' and/or 'Magnitud' if applies), then if it is the 'mean' or the standard deviation ('std') and finally the axis ('X','Y', or 'Z') if applies.
-
-
-2) summary_std_dataset: this dplyr tbl objets holds 68 variables:
-
-  * row 1: subject number. Its range is from 1 to 30.
-  * row 2: activity. It has 6 values ((WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING))
-  * row 3 to 68: these variables contains the mean values per patient and activity from mean_std_dataset. First I grouped the mean_std_dataset tbl object by patient and activity (using dplyr::group_by function) and then I passed it through dplyr::summarise_each function to calculate mean values for each group. Values are also unitless, they are normalized between [-1,1]. 
-  
-  Finally summary_st_dataset is saved in 'new_dataset.txt' file according with the project instructions.
 
 
 *Reference:*

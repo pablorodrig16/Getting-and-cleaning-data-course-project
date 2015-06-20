@@ -142,9 +142,10 @@ summary_dataset<-group_by(mean_std_dataset, subject, activities)%>%
 ##Erase all objects except 
 ##the 2 required datasets
 
-rm (list = ls()[-c(which(ls()=="mean_std_dataset"), which (ls()=="summary_dataset"))])
+rm (list = ls()[-which (ls()=="summary_dataset")])
 
 ##save the 2nd table in 'new_dataset.txt' in the working directory
 write.table(x = summary_dataset, sep = "\t", 
-            file = "new_dataset.txt", 
+            file = "summary_dataset.txt", 
             row.names = FALSE)
+
