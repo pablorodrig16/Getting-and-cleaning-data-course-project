@@ -3,6 +3,7 @@
 
 
 require (dplyr)
+require (tidyr)
 
 ##get data from url and save it in ./Data directory
 ##curl library is loaded for allowing https handling with curl_download function
@@ -34,46 +35,54 @@ data_variables_names<-readLines (zip_files[2])
 ##get activities names
 activity_labels<-read.table (zip_files[1],
                              col.names = c("code", "activity"))
-activity_variables_with_mean<-grep(pattern = "mean()",
+variables_with_mean<-grep(pattern = "mean()",
                                    fixed = TRUE,
                                    x = data_variables_names)
-activity_variables_with_std<-grep(pattern = "std()",
+variables_with_std<-grep(pattern = "std()",
                                   fixed = TRUE,
                                   x = data_variables_names)
-activity_variables_with_mean_and_std<-sort(c(activity_variables_with_mean,
-                                             activity_variables_with_std))
+variables_with_mean_and_std<-sort(c(variables_with_mean,
+                                             variables_with_std))
 
-##creates mean_std_activities_labels to improve description: first labels are 
-##subset from activity_variables_with_mean_and_std, then I split the labels and select
+##creates variables_labels to improve description: first labels are 
+##subset from variables_with_mean_and_std, then I split the labels and select
 ##the descriptive elements of them. Then I correct an error in some of the last 
 ##variables names  (BobyBody), and finally I replace the text with more descriptive
 ##names.
 
-mean_std_activities_labels<-data_variables_names[activity_variables_with_mean_and_std]
+variables_labels<-data_variables_names[variables_with_mean_and_std]
 
-mean_std_activities_labels<-strsplit (x = mean_std_activities_labels,split = " ")
+variables_labels<-strsplit (x = variables_labels,split = " ")
 
-mean_std_activities_labels<-sapply (X = mean_std_activities_labels,
+variables_labels<-sapply (X = variables_labels,
                                     FUN = function (x) x[2])
 
-mean_std_activities_labels<-gsub ("BodyBody",replacement = "Body",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("tBody",replacement = "timeBodyLinear",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("tGravity",replacement = "timeGravity",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("fBody",replacement = "frequencyBodyLinear",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("Acc",replacement = "Acceleration",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("Gyro",replacement = "AngularVelocity",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("Mag",replacement = "Magnitude",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("-",replacement = "_",
-                                  x = mean_std_activities_labels)
-mean_std_activities_labels<-gsub ("\\()",replacement = "",
-                                  x = mean_std_activities_labels)
+variables_labels<-gsub ("BodyBody",replacement = "Body",
+                                  x = variables_labels)
+variables_labels<-gsub ("tBody",replacement = "timeBodyLinear",
+                                  x = variables_labels)
+variables_labels<-gsub ("tGravity",replacement = "timeGravity",
+                                  x = variables_labels)
+variables_labels<-gsub ("fBody",replacement = "frequencyBodyLinear",
+                                  x = variables_labels)
+variables_labels<-gsub ("Acc",replacement = "Acceleration",
+                                  x = variables_labels)
+variables_labels<-gsub ("Gyro",replacement = "AngularVelocity",
+                                  x = variables_labels)
+variables_labels<-gsub ("Mag",replacement = "Magnitude",
+                                  x = variables_labels)
+variables_labels<-gsub ("-",replacement = "_",
+                                  x = variables_labels)
+variables_labels<-gsub ("\\()",replacement = "",
+                                  x = variables_labels)
+
+## split variables_labels to separate measument, function (mean or std) and axis
+variables_labels<-strsplit (variables_labels,split = "_")
+
+variables_labels <- t(sapply(variables_labels,
+                             function(x) {c(x, rep("XYZ", 3-length(x)))}))
+
+variables_labels<-apply (variables_labels,MARGIN = 1, paste, collapse="_")
 
 ##get dataset from test patients
 ##1) subjects number
@@ -90,10 +99,10 @@ test_data<-read.table (zip_files[17], colClasses = "numeric",
 ##mean() and std()
 
 tbl_test_data<-tbl_df(test_data)%>%
-        select (activity_variables_with_mean_and_std)
+        select (variables_with_mean_and_std)
 
 ##changes variables names to improve legibility
-names (tbl_test_data)<-mean_std_activities_labels
+names (tbl_test_data)<-variables_labels
 
 ##binds subjects and activity columns
 tbl_test_data<-mutate (tbl_test_data,
@@ -116,10 +125,10 @@ train_data<-read.table (zip_files[31],colClasses = "numeric",
 ##mean and std 
 
 tbl_train_data<-tbl_df(train_data)%>%
-        select (activity_variables_with_mean_and_std)
+        select (variables_with_mean_and_std)
 
 ##binds subjects and activity columns
-names (tbl_train_data)<-mean_std_activities_labels
+names (tbl_train_data)<-variables_labels
 
 ##binds subjects and activity columns
 tbl_train_data<-mutate (tbl_train_data,
@@ -132,15 +141,24 @@ tbl_train_data<-mutate (tbl_train_data,
 mean_std_dataset<- bind_rows (tbl_test_data,tbl_train_data)
 
 
-##the previous dataset is grouped by subject and activities and the function
-##dplyr::summarise_each (fun="mean") creates the second data set required in the
+##the previous dataset is grouped by subject and activities and the functions
+##dplyr::summarise_each (fun="mean") and gather, separate and spread from tidyr packages
+##create the second data set required in the
 ##course project
 
 summary_dataset<-group_by(mean_std_dataset, subject, activities)%>%
         summarise_each (funs = "mean")
 
+
+summary_dataset<-gather (data = summary_dataset,
+                         key = measurement,
+                         value = mean,
+                         -(subject:activities))%>%
+        separate (col = measurement,into = c("measurement","fun", "axis"))%>%
+        spread (key = fun,value = mean)
+
 ##Erase all objects except 
-##the 2 required datasets
+##the required dataset
 
 rm (list = ls()[-which (ls()=="summary_dataset")])
 
@@ -148,4 +166,3 @@ rm (list = ls()[-which (ls()=="summary_dataset")])
 write.table(x = summary_dataset, sep = "\t", 
             file = "summary_dataset.txt", 
             row.names = FALSE)
-

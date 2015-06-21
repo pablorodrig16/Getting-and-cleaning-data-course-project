@@ -22,7 +22,7 @@ It produces 2 tidy dataset:
         - The first one holds those variables with the mean and standard deviation (std) for each measurement ('mean_std_dataset').
         - The second holds the average of each variable for each activity and each subject from the first dataset ('summary_dataset'). The latter is saved in the working directory (named 'new_dataset.txt'). 
 
-The script requires dplyr and curl packages and works as follows:
+The script requires dplyr, tidyr and curl packages and works as follows:
 
 1) if data files ('data.zip' and unzip files) are not found in the working directory 'data.zip' it is downloaded and unzip. This creates a directory called 'UCI HAR Dataset'.
 
@@ -48,17 +48,17 @@ The script requires dplyr and curl packages and works as follows:
 
 8) subject number and activities (encoded with data activities labels) were bound to both test and train tbl objets.
 
-9) test and train tbl are merged to produce the first tidy dataset ('mean_std_dataset').
+9) test and train tbl are merged to produce the first dataset according to the instruction ('mean_std_dataset').
 
-10) mean_std_dataset tbl is grouped by both subject and activity and summarised with summarise_each function to get the second tidy dataset ('summary_dataset').
+10) mean_std_dataset tbl is grouped by both subject and activity and summarised with summarise_each function to get the mean of each variable per group and store in a new tbl ('summary_dataset').
 
-11) the latter is saved in the working directory as 'summary_dataset.txt'.
+11) summary_dataset is modified with tidyr functions: functions gather, separate and spread are used to rearrange data to create 4 columns ('measurements', 'axis', 'mean', and 'std').
 
-
-
-
+12) the latter is the resulting tidy dataset which is then saved in the working directory as 'summary_dataset.txt'.
 
 
-*Reference:*
+
+
+**Reference:**
 
 [1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
