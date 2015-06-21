@@ -11,7 +11,7 @@ Raw data is a compressed zip file that holds data from experiments carried out i
 
 **Intructions**
 
-Once downloaded, the 'run_analysis.R' can be sourced. It will download a copy of the dataset described above (it is called 'data.zip' by the script), unzip it and it will create 2 datasets as it was asked in the Coursera Getting and Cleaning data course project instructions.
+Once downloaded, the 'run_analysis.R' can be sourced. It will download a copy of the dataset described above (it is called 'data.zip' by the script), unzip it and it will create the tidy dataset as it was asked in the Coursera Getting and Cleaning data course project instructions.
 
  
 
@@ -49,7 +49,7 @@ The script requires dplyr, tidyr and curl packages and works as follows:
 
 10) mean_std_dataset tbl is grouped by both subject and activity and summarised with summarise_each function to get the mean of each variable per group (patient/activity) and store in a new tbl ('summary_dataset').
 
-11) summary_dataset is modified with tidyr functions: functions gather and separate are used to rearrange data and create 4 columns ('measurements', 'fun', 'axis', and 'mean').
+11) summary_dataset is modified with tidyr  gather to rearrange data and create a 4 columns long form ('subject', 'activities', 'measurement', and 'mean').
 
 12) the latter is the resulting tidy dataset which is then saved in the working directory as 'summary_dataset.txt'.
 

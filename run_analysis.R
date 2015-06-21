@@ -76,13 +76,6 @@ variables_labels<-gsub ("-",replacement = "_",
 variables_labels<-gsub ("\\()",replacement = "",
                                   x = variables_labels)
 
-## split variables_labels to separate measument, function (mean or std) and axis
-variables_labels<-strsplit (variables_labels,split = "_")
-
-variables_labels <- t(sapply(variables_labels,
-                             function(x) {c(x, rep("XYZ", 3-length(x)))}))
-
-variables_labels<-apply (variables_labels,MARGIN = 1, paste, collapse="_")
 
 ##get dataset from test patients
 ##1) subjects number
@@ -142,7 +135,7 @@ mean_std_dataset<- bind_rows (tbl_test_data,tbl_train_data)
 
 
 ##the previous dataset is grouped by subject and activities and the functions
-##dplyr::summarise_each (fun="mean") and gather, separate and spread from tidyr packages
+##dplyr::summarise_each (fun="mean") and gather from tidyr packages
 ##create the second data set required in the
 ##course project
 
@@ -153,8 +146,7 @@ summary_dataset<-group_by(mean_std_dataset, subject, activities)%>%
 summary_dataset<-gather (data = summary_dataset,
                          key = measurement,
                          value = mean,
-                         -(subject:activities))%>%
-        separate (col = measurement,into = c("measurement","fun", "axis"))
+                         -(subject:activities))
 
 ##Erase all objects except 
 ##the required dataset

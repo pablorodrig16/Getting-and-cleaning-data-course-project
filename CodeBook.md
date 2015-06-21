@@ -7,53 +7,147 @@
 
 *summary_dataset*
 
-The run_analysis.R script resulting 'summary_dataset' is a dplyr tbl objets that holds 6 variables and 11880 rows. This is a long form dataset. Variables (columns) are:
+The run_analysis.R script resulting 'summary_dataset' is a dplyr tbl objets that holds 4 variables and 11880 rows. This is a long form dataset. Variables (columns) are:
 
   1) 'subject': this is de subject number. Its range is from 1 to 30.
   
   2) 'activities': this has the type of activity registerd while measurement is recorded during the experiment. It has 6 possible values (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
   
-  3) 'measurement': this is a character vector containing the measurement name:
+  3) 'measurement': this is a character vector containing the measurement name. Original raw data measurements names were modified to improve legibility:
   
-        1) frequencyBodyLinearAcceleration   
-             
-        2) frequencyBodyLinearAccelerationJerk  
-          
-        3) frequencyBodyLinearAccelerationJerkMagnitude  
- 
-        4) frequencyBodyLinearAccelerationMagnitude      
- 
-        5) frequencyBodyLinearAngularVelocity             
+        1) timeBodyLinearAcceleration_mean_X    
+               
+        2) timeBodyLinearAcceleration_mean_Y                   
 
-        6) frequencyBodyLinearAngularVelocityJerkMagnitude
+        3) timeBodyLinearAcceleration_mean_Z                   
 
-        7) frequencyBodyLinearAngularVelocityMagnitude    
+        4) timeBodyLinearAcceleration_std_X                    
 
-        8) timeBodyLinearAcceleration                     
+        5) timeBodyLinearAcceleration_std_Y                    
 
-        9) timeBodyLinearAccelerationJerk                 
+        6) timeBodyLinearAcceleration_std_Z                    
 
-        10) timeBodyLinearAccelerationJerkMagnitude        
+        7) timeGravityAcceleration_mean_X                      
 
-        11) timeBodyLinearAccelerationMagnitude            
+        8) timeGravityAcceleration_mean_Y                      
 
-        12) timeBodyLinearAngularVelocity                  
+        9) timeGravityAcceleration_mean_Z                      
 
-        13) timeBodyLinearAngularVelocityJerk              
+        10) timeGravityAcceleration_std_X                       
 
-        14) timeBodyLinearAngularVelocityJerkMagnitude     
+        11) timeGravityAcceleration_std_Y                       
 
-        15) timeBodyLinearAngularVelocityMagnitude         
+        12) timeGravityAcceleration_std_Z                       
 
-        16) timeGravityAcceleration                        
+        13) timeBodyLinearAccelerationJerk_mean_X               
 
-        17) timeGravityAccelerationMagnitude 
+        14) timeBodyLinearAccelerationJerk_mean_Y               
+
+        15) timeBodyLinearAccelerationJerk_mean_Z               
+
+        16) timeBodyLinearAccelerationJerk_std_X                
+
+        17) timeBodyLinearAccelerationJerk_std_Y                
+
+        18) timeBodyLinearAccelerationJerk_std_Z                
+
+        19) timeBodyLinearAngularVelocity_mean_X                
+
+        20) timeBodyLinearAngularVelocity_mean_Y                
+
+        21) timeBodyLinearAngularVelocity_mean_Z                
+
+        22) timeBodyLinearAngularVelocity_std_X                 
+
+        23) timeBodyLinearAngularVelocity_std_Y                 
+
+        24) timeBodyLinearAngularVelocity_std_Z                 
+
+        25) timeBodyLinearAngularVelocityJerk_mean_X            
+
+        26) timeBodyLinearAngularVelocityJerk_mean_Y            
+
+        27) timeBodyLinearAngularVelocityJerk_mean_Z            
+
+        28) timeBodyLinearAngularVelocityJerk_std_X             
+
+        29) timeBodyLinearAngularVelocityJerk_std_Y             
         
-  4) 'fun': this is the measurement calculated function in the raw data (mean or standard deviation). 2 values = 'mean' or 'std'
+        30) timeBodyLinearAngularVelocityJerk_std_Z             
+
+        31) timeBodyLinearAccelerationMagnitude_mean            
+
+        32) timeBodyLinearAccelerationMagnitude_std             
+
+        33) timeGravityAccelerationMagnitude_mean               
+
+        34) timeGravityAccelerationMagnitude_std                
+
+        35) timeBodyLinearAccelerationJerkMagnitude_mean        
+
+        36) timeBodyLinearAccelerationJerkMagnitude_std         
+
+        37) timeBodyLinearAngularVelocityMagnitude_mean         
+
+        38) timeBodyLinearAngularVelocityMagnitude_std          
+
+        39) timeBodyLinearAngularVelocityJerkMagnitude_mean     
+
+        40) timeBodyLinearAngularVelocityJerkMagnitude_std      
+
+        41) frequencyBodyLinearAcceleration_mean_X              
+
+        42) frequencyBodyLinearAcceleration_mean_Y              
+
+        43) frequencyBodyLinearAcceleration_mean_Z              
+
+        44) frequencyBodyLinearAcceleration_std_X               
+
+        45) frequencyBodyLinearAcceleration_std_Y               
+
+        46) frequencyBodyLinearAcceleration_std_Z               
+
+        47) frequencyBodyLinearAccelerationJerk_mean_X          
+
+        48) frequencyBodyLinearAccelerationJerk_mean_Y          
+
+        49) frequencyBodyLinearAccelerationJerk_mean_Z          
+
+        50) frequencyBodyLinearAccelerationJerk_std_X           
+
+        51) frequencyBodyLinearAccelerationJerk_std_Y           
+
+        52) frequencyBodyLinearAccelerationJerk_std_Z           
+
+        53) frequencyBodyLinearAngularVelocity_mean_X           
         
-  5) 'axis': this is the axis that correspond to the measurement registered in each row. It can have 4 values= 'X', 'Y', 'Z' or 'XYZ' (in the case of magnitude)
-  
-  6) 'mean': this one contains the mean by patient and activity of raw data measurements ; values are unitless, they were normalized with a range from -1 to 1.
+        54) frequencyBodyLinearAngularVelocity_mean_Y           
+
+        55) frequencyBodyLinearAngularVelocity_mean_Z           
+
+        56) frequencyBodyLinearAngularVelocity_std_X            
+
+        57) frequencyBodyLinearAngularVelocity_std_Y            
+
+        58) frequencyBodyLinearAngularVelocity_std_Z            
+
+        59) frequencyBodyLinearAccelerationMagnitude_mean       
+
+        60) frequencyBodyLinearAccelerationMagnitude_std        
+
+        61) frequencyBodyLinearAccelerationJerkMagnitude_mean   
+
+        62) frequencyBodyLinearAccelerationJerkMagnitude_std    
+
+        63) frequencyBodyLinearAngularVelocityMagnitude_mean    
+
+        64) frequencyBodyLinearAngularVelocityMagnitude_std     
+
+        65) frequencyBodyLinearAngularVelocityJerkMagnitude_mean
+
+        66) frequencyBodyLinearAngularVelocityJerkMagnitude_std 
+
+  4) 'mean': this one contains the mean by patient and activity of raw data measurements ; values are unitless, they were normalized with a range from -1 to 1.
   
 
 
