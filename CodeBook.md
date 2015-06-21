@@ -10,7 +10,9 @@
 The run_analysis resulting 'summary_dataset' is a dplyr tbl objets that holds 6 variables and 5940 rows. Variables (columns) are:
 
   1) 'subject': this is de subject number. Its range is from 1 to 30.
+  
   2) 'activities': this has the type of activity registerd while measurement is recorded during the experiment. It has 6 possible values (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
+  
   3) 'measurement': this is a character vector containing the measurement name:
   
         1) frequencyBodyLinearAcceleration   
@@ -48,7 +50,9 @@ The run_analysis resulting 'summary_dataset' is a dplyr tbl objets that holds 6 
         17) timeGravityAccelerationMagnitude 
         
   4) 'axis': this is the axis that correspond to the measurement registered in each row. It can have 4 values= X, Y, Z or XYZ (in the case of magnitude)
+  
   5) 'mean': this one contains the mean by patient and activity of raw data measurements mean(); values are unitless, they were normalized with a range from -1 to 1.
+  
   6) 'std': this one contain the mean by patient and activity of raw data measurements std(); values are unitless, they were normalized with a range from -1 to 1.
 
 
