@@ -7,7 +7,7 @@
 
 *summary_dataset*
 
-The run_analysis.R script resulting 'summary_dataset' is a dplyr tbl objets that holds 6 variables and 5940 rows. Variables (columns) are:
+The run_analysis.R script resulting 'summary_dataset' is a dplyr tbl objets that holds 6 variables and 11880 rows. This is a long form dataset. Variables (columns) are:
 
   1) 'subject': this is de subject number. Its range is from 1 to 30.
   
@@ -49,12 +49,12 @@ The run_analysis.R script resulting 'summary_dataset' is a dplyr tbl objets that
 
         17) timeGravityAccelerationMagnitude 
         
-  4) 'axis': this is the axis that correspond to the measurement registered in each row. It can have 4 values= X, Y, Z or XYZ (in the case of magnitude)
+  4) 'fun': this is the measurement calculated function in the raw data (mean or standard deviation). 2 values = 'mean' or 'std'
+        
+  5) 'axis': this is the axis that correspond to the measurement registered in each row. It can have 4 values= 'X', 'Y', 'Z' or 'XYZ' (in the case of magnitude)
   
-  5) 'mean': this one contains the mean by patient and activity of raw data measurements mean(); values are unitless, they were normalized with a range from -1 to 1.
+  6) 'mean': this one contains the mean by patient and activity of raw data measurements ; values are unitless, they were normalized with a range from -1 to 1.
   
-  6) 'std': this one contain the mean by patient and activity of raw data measurements std(); values are unitless, they were normalized with a range from -1 to 1.
-
 
 
 **Study design**

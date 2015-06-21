@@ -154,8 +154,7 @@ summary_dataset<-gather (data = summary_dataset,
                          key = measurement,
                          value = mean,
                          -(subject:activities))%>%
-        separate (col = measurement,into = c("measurement","fun", "axis"))%>%
-        spread (key = fun,value = mean)
+        separate (col = measurement,into = c("measurement","fun", "axis"))
 
 ##Erase all objects except 
 ##the required dataset
