@@ -7,7 +7,7 @@
 
 *summary_dataset*
 
-The run_analysis resulting 'summary_dataset' is a dplyr tbl objets that holds 6 variables and 5940 rows. Variables (columns) are:
+The run_analysis.R script resulting 'summary_dataset' is a dplyr tbl objets that holds 6 variables and 5940 rows. Variables (columns) are:
 
   1) 'subject': this is de subject number. Its range is from 1 to 30.
   
